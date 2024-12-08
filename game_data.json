@@ -1,0 +1,12 @@
+{
+    "GTA V": {
+        "name": "GTA V",
+        "cpu_benchmark": 8000,
+        "gpu_benchmark": 7000
+    },
+    "Cyberpunk 2077": {
+        "name": "Cyberpunk 2077",
+        "cpu_benchmark": 14000,
+        "gpu_benchmark": 12000
+    }
+}
