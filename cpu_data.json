@@ -1,5 +1,14 @@
 {
-    "AMD Ryzen 7 7700X": {"benchmark": 23000},
-    "Intel Core i5-9600K": {"benchmark": 12000},
-    "Intel Core i7-8700K": {"benchmark": 15000}
+    "AMD Ryzen 7 7700X": {
+        "benchmark": 23000
+    },
+    "Intel Core i5-9600K": {
+        "benchmark": 12000
+    },
+    "Intel Core i7-8700K": {
+        "benchmark": 15000
+    },
+    "IDK": {
+        "benchmark": 42432
+    }
 }
