@@ -76,6 +76,30 @@ def verify_hardware(hardware, cpu_data, gpu_data):
 
     return hardware
 
+# Let the user choose a game
+def choose_game(game_data):
+    print("\nAvailable Games:")
+    for idx, game_name in enumerate(game_data.keys(), 1):
+        print(f"{idx}. {game_name}")
+    game_choice = int(input("\nChoose a game (number): "))
+    selected_game = list(game_data.keys())[game_choice - 1]
+    return game_data[selected_game]
+
+# Calculate FPS based on hardware and game requirements
+def calculate_fps(hardware, game, cpu_data, gpu_data):
+    cpu_benchmark = cpu_data[hardware["cpu"]]["benchmark"]
+    gpu_benchmark = gpu_data[hardware["gpu"]]["benchmark"]
+
+    cpu_required = game["cpu_benchmark"]
+    gpu_required = game["gpu_benchmark"]
+
+    cpu_ratio = cpu_benchmark / cpu_required
+    gpu_ratio = gpu_benchmark / gpu_required
+
+    # Estimate FPS (baseline is 60 FPS for matching benchmarks)
+    estimated_fps = 60 * min(cpu_ratio, gpu_ratio)
+    return estimated_fps
+
 def main():
     print("Welcome to the Game Benchmark Checker!")
 
@@ -91,10 +115,19 @@ def main():
     hardware = verify_hardware(hardware, cpu_data, gpu_data)
     print(f"\nFinalized Hardware: CPU = {hardware['cpu']}, GPU = {hardware['gpu']}, RAM = {hardware['ram']}GB")
 
-    # Display loaded data
-    print("\nLoaded CPU Data:", cpu_data)
-    print("Loaded GPU Data:", gpu_data)
-    print("Loaded Game Data:", game_data)
+    # Let the user choose a game
+    selected_game = choose_game(game_data)
+    print(f"\nYou selected: {selected_game['name']}")
+
+    # Calculate FPS
+    estimated_fps = calculate_fps(hardware, selected_game, cpu_data, gpu_data)
+    print(f"\nEstimated FPS for {selected_game['name']}: {estimated_fps:.2f} FPS")
+    if estimated_fps >= 30:
+        print("You can play this game at a decent performance level.")
+    elif 15 <= estimated_fps < 30:
+        print("You can play this game, but performance may be poor.")
+    else:
+        print("Your hardware is not sufficient to play this game.")
 
 if __name__ == "__main__":
     main()
