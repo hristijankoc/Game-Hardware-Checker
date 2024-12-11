@@ -8,5 +8,10 @@
         "name": "Cyberpunk 2077",
         "cpu_benchmark": 14000,
         "gpu_benchmark": 12000
+    },
+    "elden ring": {
+        "name": "elden ring",
+        "cpu_benchmark": 2000,
+        "gpu_benchmark": 3000
     }
 }

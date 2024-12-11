@@ -81,9 +81,32 @@ def choose_game(game_data):
     print("\nAvailable Games:")
     for idx, game_name in enumerate(game_data.keys(), 1):
         print(f"{idx}. {game_name}")
+    print(f"{len(game_data) + 1}. Add a new game")
+
     game_choice = int(input("\nChoose a game (number): "))
-    selected_game = list(game_data.keys())[game_choice - 1]
-    return game_data[selected_game]
+    if game_choice == len(game_data) + 1:
+        return add_new_game(game_data)
+    else:
+        selected_game = list(game_data.keys())[game_choice - 1]
+        return game_data[selected_game]
+
+# Add a new game to the database
+def add_new_game(game_data):
+    game_name = input("Enter the name of the new game: ").strip()
+    cpu_benchmark = int(input(f"Enter minimum CPU benchmark for '{game_name}': "))
+    gpu_benchmark = int(input(f"Enter minimum GPU benchmark for '{game_name}': "))
+    new_game = {
+        "name": game_name,
+        "cpu_benchmark": cpu_benchmark,
+        "gpu_benchmark": gpu_benchmark,
+    }
+
+    save_game = input("Would you like to save this game to the database? (yes/no): ").strip().lower()
+    if save_game in ["yes", "y"]:
+        game_data[game_name] = new_game
+        save_json(game_data, "game_data.json")
+        print(f"'{game_name}' has been added to the database.")
+    return new_game
 
 # Calculate FPS based on hardware and game requirements
 def calculate_fps(hardware, game, cpu_data, gpu_data):
